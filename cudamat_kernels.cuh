@@ -46,6 +46,8 @@ __global__ void kApplyAbs(float* mat, float* target, unsigned int len);
 __global__ void kApplyLog1PlusExp(float* mat, float* target, unsigned int len);
 __global__ void kLog(float* mat, float* target, unsigned int len);
 __global__ void kExp(float* mat, float* target, unsigned int len);
+__global__ void kGamma(float* mat, float* target, unsigned int len);
+__global__ void kLogGamma(float* mat, float* target, unsigned int len);
 __global__ void kSqrt(float* mat, float* target, unsigned int len);
 __global__ void kPow(float* mat, float pow, float* target, unsigned int len);
 __global__ void kPowMatrix(float* mat, float* pow, float* target, unsigned int len);

@@ -51,6 +51,8 @@ _cudamat.apply_abs.restype = ct.c_int
 _cudamat.apply_log_1_plus_exp.restype = ct.c_int
 _cudamat.apply_log.restype = ct.c_int
 _cudamat.apply_exp.restype = ct.c_int
+_cudamat.apply_gamma.restype = ct.c_int
+_cudamat.apply_lgamma.restype = ct.c_int
 _cudamat.apply_sqrt.restype = ct.c_int
 _cudamat.apply_pow.restype = ct.c_int
 _cudamat.apply_pow_matrix.restype = ct.c_int
@@ -1000,6 +1002,34 @@ def exp(mat, target = None):
         target = mat
 
     err_code = _cudamat.apply_exp(mat.p_mat, target.p_mat)
+    if err_code:
+        raise generate_exception(err_code)
+
+    return target
+
+def gamma(mat, target = None):
+    """
+    Apply the gamma function to each element of the matrix mat.
+    """
+
+    if not target:
+        target = mat
+
+    err_code = _cudamat.apply_gamma(mat.p_mat, target.p_mat)
+    if err_code:
+        raise generate_exception(err_code)
+
+    return target
+
+def lgamma(mat, target = None):
+    """
+    Apply the log gamma function to each element of the matrix mat.
+    """
+
+    if not target:
+        target = mat
+
+    err_code = _cudamat.apply_lgamma(mat.p_mat, target.p_mat)
     if err_code:
         raise generate_exception(err_code)
 
