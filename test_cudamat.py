@@ -530,6 +530,46 @@ def test_exp():
     assert np.max(np.abs(c - m1.numpy_array)) < 10**-4, "Error in cudamat.exp exceeded threshold"
     assert np.max(np.abs(c - m2.numpy_array)) < 10**-4, "Error in cudamat.exp exceeded threshold"
 
+def test_gamma():
+    m = 256
+    n = 128
+    a = np.array(np.random.rand(m, n)*5, dtype=np.float32, order='F')
+    b = np.array(np.random.rand(m, n)*5, dtype=np.float32, order='F')
+
+    from scipy.special import gamma
+    c = gamma(a)
+
+    m1 = cm.CUDAMatrix(a)
+    m2 = cm.CUDAMatrix(b)
+    cm.gamma(m1, target = m2)
+    cm.gamma(m1)
+
+    m1.copy_to_host()
+    m2.copy_to_host()
+
+    assert np.max(np.abs(c - m1.numpy_array)) < 10**-2, "Error in cudamat.gamma exceeded threshold"
+    assert np.max(np.abs(c - m2.numpy_array)) < 10**-2, "Error in cudamat.gamma exceeded threshold"
+
+def test_lgamma():
+    m = 256
+    n = 128
+    a = np.array(np.random.rand(m, n)*10, dtype=np.float32, order='F')
+    b = np.array(np.random.rand(m, n)*10, dtype=np.float32, order='F')
+
+    from scipy.special import gammaln
+    c = gammaln(a)
+
+    m1 = cm.CUDAMatrix(a)
+    m2 = cm.CUDAMatrix(b)
+    cm.lgamma(m1, target = m2)
+    cm.lgamma(m1)
+
+    m1.copy_to_host()
+    m2.copy_to_host()
+
+    assert np.max(np.abs(c - m1.numpy_array)) < 10**-2, "Error in cudamat.lgamma exceeded threshold " + str(np.max(np.abs(c - m1.numpy_array)))
+    assert np.max(np.abs(c - m2.numpy_array)) < 10**-2, "Error in cudamat.lgamma exceeded threshold"
+
 def test_sqrt():
     m = 256
     n = 128
