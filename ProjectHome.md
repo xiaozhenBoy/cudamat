@@ -1,0 +1,1 @@
+## cudamat is now hosted on `GitHub` - [https://github.com/cudamat/cudamat](https://github.com/cudamat/cudamat) ##
